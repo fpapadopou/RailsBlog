@@ -17,9 +17,15 @@ class BlogpostController < APIController
     end
   end
 
-  # Returns a blog post
+  # Returns a blog post, handles not found exceptions
   def show
-    render json: { content: 'Not implemented yet..' }
+    begin
+      @blogpost = Blogpost.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render_post_not_found
+      return
+    end
+    render json: @blogpost
   end
 
   # Updates either the title or content (or both) of a blog post
