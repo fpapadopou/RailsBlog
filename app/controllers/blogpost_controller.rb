@@ -45,6 +45,26 @@ class BlogpostController < APIController
 
   # Deletes the specified blog post
   def destroy
-    render json: { content: 'Not implemented yet..' }
+    begin
+      @blogpost = Blogpost.destroy(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render_post_not_found
+      return
+    end
+    render json: { message: 'Blogpost deleted successfully!' }
+  end
+
+  private
+
+  # Only allows permitted params to be used in blog post creation
+  def blogpost_params
+    params.require(:blogpost).permit(:title, :text)
+  end
+
+  # Renders the JSON response when a post is not found
+  def render_post_not_found
+    render status: 404, json: {
+      errors: ["No blogpost with id #{params[:id]} exists!"]
+    }
   end
 end
