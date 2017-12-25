@@ -2,7 +2,7 @@
 class BlogpostController < APIController
   # Lists all existing blog posts, paginated by 5
   def index
-    @blogposts = Blogpost.page params[:page]
+    @blogposts = Blogpost.order(:id).page params[:page]
     render json: @blogposts
   end
 
