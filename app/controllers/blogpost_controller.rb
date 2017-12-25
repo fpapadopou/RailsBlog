@@ -1,8 +1,9 @@
 # BlogpostController handles blog post CRUD operations
 class BlogpostController < APIController
-  # Lists all existing blog posts
+  # Lists all existing blog posts, paginated by 5
   def index
-    render json: { content: 'All blog posts!' }
+    @blogposts = Blogpost.page params[:page]
+    render json: @blogposts
   end
 
   # Creates a new blog post with the provided title and content
