@@ -1,5 +1,10 @@
 # BlogpostController handles blog post CRUD operations
 class BlogpostController < APIController
+  # Lists all existing blog posts
+  def index
+    render json: { content: 'All blog posts!' }
+  end
+
   # Creates a new blog post with the provided title and content
   def create
     render json: { content: params[:blogpost] }
