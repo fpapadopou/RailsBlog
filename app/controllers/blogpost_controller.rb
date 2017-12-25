@@ -30,7 +30,17 @@ class BlogpostController < APIController
 
   # Updates either the title or content (or both) of a blog post
   def update
-    render json: { content: 'Not implemented yet..' }
+    begin
+      @blogpost = Blogpost.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render_post_not_found
+      return
+    end
+    if @blogpost.update(blogpost_params)
+      render json: @blogpost
+      return
+    end
+    render status: 500, json: { errors: @blogpost.errors }
   end
 
   # Deletes the specified blog post
