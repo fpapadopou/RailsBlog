@@ -8,7 +8,13 @@ class BlogpostController < APIController
 
   # Creates a new blog post with the provided title and content
   def create
-    render json: { content: params[:blogpost] }
+    @blogpost = Blogpost.new(blogpost_params)
+
+    if @blogpost.save
+      render json: @blogpost
+    else
+      render status: 500, json: { errors: @blogpost.errors }
+    end
   end
 
   # Returns a blog post
