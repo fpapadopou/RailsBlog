@@ -15,7 +15,7 @@ class BlogpostController < APIController
     render json: { content: 'Not implemented yet..' }
   end
 
-  # Updates either the title or content (or both) of a blog post
+  # Deletes the specified blog post
   def destroy
     render json: { content: 'Not implemented yet..' }
   end
